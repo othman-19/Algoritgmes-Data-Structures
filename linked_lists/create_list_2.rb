@@ -1,3 +1,4 @@
+# Start with your code from last challenge in the creat_list_1.rb file.
 class Node
   attr_accessor :value, :next_node
   
@@ -14,6 +15,7 @@ class LinkedList
     @tail=nil
   end 
   
+  
   def add(number)
     # your code here
     
@@ -28,10 +30,6 @@ class LinkedList
       end
       current.next_node=Node.new(number)
     end
-  
-    
-  
-    
   end
   
   "def add(number)
@@ -41,8 +39,6 @@ class LinkedList
     @head = @new_node
   end  "
     
-
-
   def get(index)
     counter=0
     node=@head
@@ -54,11 +50,55 @@ class LinkedList
       node=node.next_node
     end
   end
+  
+  def get_node(index)
+    counter=0
+    node=@head
+    while(node != nil)
+      if (counter == index)
+        return node
+      end
+      counter+=1
+      node=node.next_node
+    end
+  end
+  
+  def add_at(index, item)
+    added=Node.new(item)
+    if index==0  
+      added.next_node=get_node((index))
+      @head=added
+    else
+      added.next_node=get_node((index))
+      get_node(index-1).next_node=added
+    end
+  end
+  
+  def remove(index)
+    removed=get_node(index)
+    if index==0 
+      @head=get_node(index+1)
+      removed.next_node=nil
+    else
+      get_node((index-1)).next_node=get_node((index+1))
+      removed.next_node=nil
+    end
+  end
 end  
 
 list = LinkedList.new
 
+
+list.add(8)
 list.add(3)
-list.add(5)
-list.add(7)
+
+
+list.add_at(0, 5)
+
+list.add_at(2, 4)
+
+list.remove(1)
 p list
+#Expected list: [5, 4, 3]
+
+
